@@ -6,13 +6,13 @@ const SolarSystem = function(planets) {
 
 SolarSystem.prototype.bindEvent = function () {
   PubSub.subscribe('PlanetSelect:click',(event)=>{
-  const selection = event.detail;
-  this.exportPlanet(selection);
+    const selection = event.detail;
+    this.exportPlanet(selection);
   })
 };
 
 SolarSystem.prototype.exportPlanet = function (selection) {
-  const found_planet = this.planets.filter(el => el['name'] === selection);
-  console.log(found_planet[0]);
+  const found_planet = this.planets.filter(el => el['name'] === selection)[0];
+  PubSub.publish('SolarSystem:planet-ready',found_planet);
 };
 module.exports = SolarSystem;
